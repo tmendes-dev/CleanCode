@@ -1,5 +1,4 @@
-﻿
-namespace CleanCode.VariableDeclarationsAtTheTop
+﻿namespace CleanCode.VariableDeclarationsAtTheTop
 {
     public class PayCalculator
     {
@@ -14,10 +13,6 @@ namespace CleanCode.VariableDeclarationsAtTheTop
         {
             decimal overtimeHours = 0;
             decimal regularHours = 0;
-            decimal regularPay = 0;
-            decimal overtimePay = 0;
-
-            decimal grossPay = 0;
 
             if (_payFrequency == PayFrequency.Fortnightly)
             {
@@ -29,8 +24,6 @@ namespace CleanCode.VariableDeclarationsAtTheTop
                 else
                     regularHours = hours;
             }
-
-
             else if (_payFrequency == PayFrequency.Weekly)
             {
                 if (hours > 40)
@@ -42,14 +35,16 @@ namespace CleanCode.VariableDeclarationsAtTheTop
                     regularHours = hours;
             }
 
+            decimal overtimePay = 0;
 
             if (overtimeHours > 0m)
             {
                 overtimePay += (rate * 1.5m) * overtimeHours;
             }
 
-            regularPay = (regularHours * rate);
-            grossPay = regularPay + overtimePay;
+            decimal regularPay = (regularHours * rate);
+
+            decimal grossPay = regularPay + overtimePay;
 
             return grossPay;
         }
@@ -59,6 +54,5 @@ namespace CleanCode.VariableDeclarationsAtTheTop
             Weekly,
             Fortnightly
         }
-
     }
 }

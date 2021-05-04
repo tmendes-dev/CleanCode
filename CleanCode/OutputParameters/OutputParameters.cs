@@ -8,8 +8,8 @@ namespace CleanCode.OutputParameters
     {
         public class GetCustomersResult
         {
-            public IEnumerable<Customer> Costumers { get; set; }
-            public int TotalCount { get; set; }
+            public IEnumerable<Customer> Costumers { get; private set; }
+            public int TotalCount { get; private set; }
 
             public GetCustomersResult(int totalCount, IEnumerable<Customer> costumers)
             {
@@ -19,13 +19,11 @@ namespace CleanCode.OutputParameters
         }
         public void DisplayCustomers()
         {
-            int totalCount;
-            var tuple = GetCustomers(1);
-            totalCount = tuple.TotalCount;
-            var customers = tuple.Costumers;
+            GetCustomersResult result = GetCustomers(pageIndex:1);
+            IEnumerable<Customer> customers = result.Costumers; 
 
-            Console.WriteLine("Total customers: " + totalCount);
-            foreach (var c in customers)
+            Console.WriteLine("Total customers: " + result.TotalCount);
+            foreach (Customer c in customers)
                 Console.WriteLine(c);
         }
 

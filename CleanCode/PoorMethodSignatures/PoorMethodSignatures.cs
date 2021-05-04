@@ -30,7 +30,6 @@ namespace CleanCode.PoorMethodSignatures
             if (user != null)
             {
                 user.LastLogin = DateTime.Now;
-                
             }
             return user;
         }

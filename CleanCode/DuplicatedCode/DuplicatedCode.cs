@@ -4,13 +4,23 @@ namespace CleanCode.DuplicatedCode
 {
     internal class DuplicatedCode
     {
+       public class Time
+        {
+            public int Hours { get; set; }
+            public int Minutes { get; set; }
+            public Time(int hours, int minutes)
+            {
+                Hours = hours;
+                Minutes = minutes;
+            }
+        }
         public void AdmitGuest(string name, string admissionDateTime)
         {
             // Some logic
             // ...
-            var tuple = GetTime(admissionDateTime);
-            var hours = tuple.Item1;
-            var minutes = tuple.Item2;
+            var time = GetTime(admissionDateTime);
+            var hours = time.Hours;
+            var minutes = time.Minutes;
             // Some more logic
             // ...
             if (hours < 10)
@@ -23,9 +33,9 @@ namespace CleanCode.DuplicatedCode
             // Some logic
             // ...
 
-            var tuple = GetTime(admissionDateTime);
-            var hours = tuple.Item1;
-            var minutes = tuple.Item2;
+            var time = GetTime(admissionDateTime);
+            var hours = time.Hours;
+            var minutes = time.Minutes;
 
             // Some more logic
             // ...
@@ -34,7 +44,7 @@ namespace CleanCode.DuplicatedCode
             }
         }
 
-        private static Tuple<int,int> GetTime( string admissionDateTime)
+        private static Time GetTime( string admissionDateTime)
         {
             int time;
             int hours = 0;
@@ -53,7 +63,7 @@ namespace CleanCode.DuplicatedCode
             }
             else
                 throw new ArgumentNullException("admissionDateTime");
-            return Tuple.Create(hours,minutes);
+            return new Time(hours,minutes);
         }
     }
 }

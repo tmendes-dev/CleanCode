@@ -8,9 +8,9 @@ namespace CleanCode.DuplicatedCode
         {
             // Some logic
             // ...
-            int hours;
-            int minutes;
-            GetTime(out hours, admissionDateTime, out minutes);
+            var tuple = GetTime(admissionDateTime);
+            var hours = tuple.Item1;
+            var minutes = tuple.Item2;
             // Some more logic
             // ...
             if (hours < 10)
@@ -23,9 +23,9 @@ namespace CleanCode.DuplicatedCode
             // Some logic
             // ...
 
-            int hours;
-            int minutes;
-            GetTime(out hours, admissionDateTime, out minutes);
+            var tuple = GetTime(admissionDateTime);
+            var hours = tuple.Item1;
+            var minutes = tuple.Item2;
 
             // Some more logic
             // ...
@@ -34,11 +34,11 @@ namespace CleanCode.DuplicatedCode
             }
         }
 
-        private static void GetTime(out int hours, string admissionDateTime, out int minutes)
+        private static Tuple<int,int> GetTime( string admissionDateTime)
         {
             int time;
-            hours = 0;
-            minutes = 0;
+            int hours = 0;
+            int minutes = 0;
             if (!string.IsNullOrWhiteSpace(admissionDateTime))
             {
                 if (int.TryParse(admissionDateTime.Replace(":", ""), out time))
@@ -53,6 +53,7 @@ namespace CleanCode.DuplicatedCode
             }
             else
                 throw new ArgumentNullException("admissionDateTime");
+            return Tuple.Create(hours,minutes);
         }
     }
 }

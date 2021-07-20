@@ -33,6 +33,10 @@ namespace CleanCode.DuplicatedCode
                 }
                 else
                     throw new ArgumentNullException("timeString");
+
+                if(hours>24 || hours < 0)
+                    throw new ArgumentException("Value over 24 hours or negative");
+
                 return new Time(hours, minutes);
             }
         }

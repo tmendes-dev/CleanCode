@@ -1,50 +1,44 @@
-﻿
-using System;
+﻿using System;
 
 namespace CleanCode.DuplicatedCode
 {
-    class DuplicatedCode
+    internal class DuplicatedCode
     {
         public void AdmitGuest(string name, string admissionDateTime)
         {
-            // Some logic 
+            // Some logic
             // ...
-
-            int time;
-            int hours = 0;
-            int minutes = 0;
-            if (!string.IsNullOrWhiteSpace(admissionDateTime))
-            {
-                if (int.TryParse(admissionDateTime.Replace(":", ""), out time))
-                {
-                    hours = time / 100;
-                    minutes = time % 100;
-                }
-                else
-                {
-                    throw new ArgumentException("admissionDateTime");
-                }
-
-            }
-            else
-                throw new ArgumentNullException("admissionDateTime");
-
-            // Some more logic 
+            int hours;
+            int minutes;
+            GetTime(out hours, admissionDateTime, out minutes);
+            // Some more logic
             // ...
             if (hours < 10)
             {
-
             }
         }
 
         public void UpdateAdmission(int admissionId, string name, string admissionDateTime)
         {
-            // Some logic 
+            // Some logic
             // ...
 
+            int hours;
+            int minutes;
+            GetTime(out hours, admissionDateTime, out minutes);
+
+            // Some more logic
+            // ...
+            if (hours < 10)
+            {
+            }
+        }
+
+        private static void GetTime(out int hours, string admissionDateTime, out int minutes)
+        {
             int time;
-            int hours = 0;
-            int minutes = 0;
+            hours = 0;
+            minutes = 0;
             if (!string.IsNullOrWhiteSpace(admissionDateTime))
             {
                 if (int.TryParse(admissionDateTime.Replace(":", ""), out time))
@@ -59,13 +53,6 @@ namespace CleanCode.DuplicatedCode
             }
             else
                 throw new ArgumentNullException("admissionDateTime");
-
-            // Some more logic 
-            // ...
-            if (hours < 10)
-            {
-
-            }
         }
     }
 }

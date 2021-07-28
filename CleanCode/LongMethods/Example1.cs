@@ -1,8 +1,5 @@
 ﻿using CleanCode.LongMethods;
 using System;
-using System.Configuration;
-using System.Data;
-using System.Data.SqlClient;
 using System.IO;
 using System.Web;
 
@@ -10,19 +7,24 @@ namespace FooFoo
 {
     public partial class Download : System.Web.UI.Page
     {
-        private readonly MemoryFileCreator _memoryFileCreator = new MemoryFileCreator();
+        private readonly DataTableToCsv _memoryFileCreator = new DataTableToCsv();
+        private readonly TableReader _tableReader = new TableReader();
+
         protected void Page_Load(object sender, EventArgs e)
         {
             ClearResponse();
-
             SetCacheability();
+            WriteContentToResponse(GetCsv());
+        }
 
-            MemoryStream ms = _memoryFileCreator.CreateMemoryFile();
+        private byte[] GetCsv()
+        {
+            MemoryStream ms = _memoryFileCreator.Map(_tableReader.GetDataTable());
 
             byte[] byteArray = ms.ToArray();
             ms.Flush();
             ms.Close();
-            WriteContentToResponse(byteArray);
+            return byteArray;
         }
 
         private void WriteContentToResponse(byte[] byteArray)
@@ -50,7 +52,5 @@ namespace FooFoo
             Response.ClearHeaders();
             Response.Cookies.Clear();
         }
-
-       
     }
 }
